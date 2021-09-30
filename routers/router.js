@@ -10,6 +10,8 @@ const musiccontroller=require('../controllers/music');
 
 const admincontroller=require('../controllers/admin')
 
+const imagecontroller=require('../controllers/image')
+
 router.post('/signup',signupcontroller.postsignup);
 
 router.post('/signupcheck', signupcontroller.checksignup)
@@ -39,6 +41,8 @@ router.post('/songsrequest',admincontroller.postyoursongs)
 router.post('/songsrequestedmails',admincontroller.get_all_customer_emails)
 
 router.post('/requestedsongnotification',admincontroller.requestedsongsnotifications)
+
+router.post('/images', imagecontroller.postimages)
 
 
 
