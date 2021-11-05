@@ -25,3 +25,15 @@ exports.getsongsbyname=(req,res)=>{
 
    .catch(err=>res.status(500).json({error:err}));
 }
+
+exports.findbymoviename=(req,res)=>{
+   const request=req.body;
+
+   const moviename=request.moviename;
+
+   songs.find({moviename:moviename})
+
+   .then(response=>{response.length!==0?res.status(200).json({moviesongs:response,ismovieexist:true}):res.status(200).json({moviesongs:response,ismovieexist:false})})
+
+   .catch(err=>res.status(500).json({error:err}))
+}
