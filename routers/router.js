@@ -44,6 +44,8 @@ router.post('/requestedsongnotification',admincontroller.requestedsongsnotificat
 
 router.post('/images', imagecontroller.postimages)
 
+router.post('/findbymoviename',musiccontroller.findbymoviename)
+
 
 
 
