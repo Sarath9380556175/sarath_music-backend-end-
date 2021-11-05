@@ -32,6 +32,10 @@ const music=new Schema({
     {
         type:String,
         required:true
+    },
+    moviename:{
+        type:String,
+        required:true
     }
 })
 
