@@ -12,6 +12,9 @@ exports.forgotpassword=(req,res)=>{
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
+         type: "SMTP",
+        host: "smtp.gmail.com",
+        secure: true,
         auth: {
           user: 'sarathbunny75',
           pass: 'Sarath@9380'
