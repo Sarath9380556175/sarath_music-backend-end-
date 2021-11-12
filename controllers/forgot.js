@@ -10,31 +10,20 @@ exports.forgotpassword=(req,res)=>{
 
     const otp = Math.floor(1000 + Math.random() * 9000);
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-         type: "SMTP",
-        host: "smtp.gmail.com",
-        secure: true,
+   var transporter = nodemailer.createTransport({
+        service: 'Gmail',
         auth: {
-          user: 'sarathbunny75',
-          pass: 'Sarath@9380'
+            user: 'sarathbunny75',
+            pass: 'Sarath@9380'
         }
-      });
-      
-      
-      var mailOptions = {
-        from: 'sarathbunny75@gmail.com',
-        to: email,
-        subject: 'Dont share OTP with anyone',
-        text: `${otp}`
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
+    });
+    
+    console.log('created');
+    transporter.sendMail({
+    from: 'sarathbunny75@gmail.com',
+      to: email,
+      subject: 'Dont share OTP with anyone',
+      text: `${otp}`
     });
 
     const forgots=new forgot({otp:otp})
