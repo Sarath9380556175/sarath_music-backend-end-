@@ -1,5 +1,4 @@
 const forgot=require('../models/forgotpassword');
-const {google}=require('googleapis')
 var nodemailer = require('nodemailer');
 
 exports.forgotpassword=(req,res)=>{
@@ -9,49 +8,28 @@ exports.forgotpassword=(req,res)=>{
     const email=request.email;
 
     const otp = Math.floor(1000 + Math.random() * 9000);
-
-   const CLIENT_ID='662761358082-81ivmtbmppn3rve2mt62vldfhlukqulj.apps.googleusercontent.com';
-    const CLIENT_SECRET='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';
-    const REDIRECT_URI='https://developers.google.com/oauthplayground';
-    const REFRESH_TOKEN='1//046RVigybpkyTCgYIARAAGAQSNwF-L9Ir1KKAKhbL2YmiBWK-C9zIXNvM5d-4mROhidnUkXryh7byfyWR8SqWR4tvj-FKNBVWS3U';
-    
-    const oAuth2Client=new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI)
-    
-    oAuth2Client.setCredentials({refresh_token:REFRESH_TOKEN})
-
-
-    
-const accessToken=oAuth2Client.getAccessToken();
-
-const transport=nodemailer.createTransport({
-    service:'gmail',
-    auth:{
-        type:'OAuth2',
-        user:'sarathbunny75@gmail.com',
-        clientId:CLIENT_ID,
-        clientSecret:CLIENT_SECRET,
-        refreshToken:REFRESH_TOKEN,
-        accessToken:accessToken,
-
-    }
-})
-
-const mailOptions={
-    from:'sarathbunny75@gmail.com',
-    to:email,
-    subject:'Dont share OTP with anyone',
-    text:`${otp}`
-
-}
-
-transport.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-});
-    
+var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'sarathbunny75',
+          pass: 'Sarath@9380'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'sarathbunny75@gmail.com',
+        to: email,
+        subject: 'Dont share OTP with anyone',
+        text:`${otp}`
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
 
     const forgots=new forgot({otp:otp})
 
