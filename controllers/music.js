@@ -37,3 +37,31 @@ exports.findbymoviename=(req,res)=>{
 
    .catch(err=>res.status(500).json({error:err}))
 }
+
+exports.findbymusicdirector=(req,res)=>{
+   const request=req.body;
+
+   const musicdirector=request.musicdirector;
+
+   songs.find({music:musicdirector})
+
+   .then(response=>{response.length!==0?res.status(200).json({musicdirector:response,isdirectorexist:true}):res.status(200).json({musicdirector:response,isdirectorexist:false})})
+
+   .catch(err=>res.status(500).json({error:err}))
+}
+
+
+exports.findbysingername=(req,res)=>{
+   const request=req.body;
+
+   const singername=request.singername;
+
+   
+
+   songs.find({singers:singername})
+
+   .then(response=>{response.length!==0?res.status(200).json({singernames:response,issingerexist:true}):res.status(200).json({singernames:response,issingerexist:false})})
+
+   .catch(err=>res.status(500).json({error:err}))
+}
+
