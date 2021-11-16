@@ -50,4 +50,9 @@ router.post('/sendmails',signupcontroller.sendmails)
 
 router.post('/sendmobilenumbers',signupcontroller.getmobilenumbers)
 
+router.post('/findbymusicdirector',musiccontroller.findbymusicdirector)
+
+router.post('/findbysinger',musiccontroller.findbysingername)
+
+
 module.exports=router;
