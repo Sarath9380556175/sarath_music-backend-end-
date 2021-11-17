@@ -5,10 +5,25 @@ exports.getsongsbylanguage=(req,res)=>
    const request=req.body;
 
    const language=request.language;
+   
+   const page=request.page ? request.page :1; //ternary operator
+   const countperpage=5;
+   let startindex=(page*countperpage)-countperpage;
+ let endindex=(page*countperpage);
+   
 
    songs.find({language:language})
 
-   .then(response=>res.status(200).json({music:response}))
+   .then(response=>{
+        const filterpage=response.slice(startindex,endindex);
+      const pagecount=Math.ceil(response.length/5);
+      let pagecountarr=[];
+      for(i=1;i<=pagecount;i++)
+      {
+          pagecountarr.push(i);
+      }
+      
+      res.status(200).json({music:filterpage,pagecount:pagecount,pagecounts:pagecountarr})})
 
    .catch(error=>res.status(500).json({err:error}))
 }
