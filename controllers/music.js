@@ -7,7 +7,7 @@ exports.getsongsbylanguage=(req,res)=>
    const language=request.language;
 
    const page=request.page ? request.page :1; //ternary operator
-   const countperpage=2;
+   const countperpage=4;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
@@ -16,7 +16,7 @@ exports.getsongsbylanguage=(req,res)=>
    .then(response=>{
       
       const filterpage=response.slice(startindex,endindex);
-      const pagecount=Math.ceil(response.length/2);
+      const pagecount=Math.ceil(response.length/4);
       let pagecountarr=[];
       for(i=1;i<=pagecount;i++)
       {
