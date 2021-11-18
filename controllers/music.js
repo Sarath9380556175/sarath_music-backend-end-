@@ -33,13 +33,13 @@ exports.getsongsbyname=(req,res)=>{
    const request=req.body;
 
    const songname=request.songname;
-
+   const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
    const countperpage=2;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
-   songs.find({songname:songname})
+   songs.find({songname:songname,language:language})
 
    .then(response=>{
       
@@ -60,7 +60,7 @@ exports.findbymoviename=(req,res)=>{
    const request=req.body;
 
   
-
+   const language=request.language;
    const moviename=request.moviename;
    const page=request.page ? request.page :1; //ternary operator
    const countperpage=2;
@@ -68,7 +68,7 @@ exports.findbymoviename=(req,res)=>{
  let endindex=(page*countperpage);
 
 
-   songs.find({moviename:moviename})
+   songs.find({moviename:moviename,language:language})
 
    .then(response=>{
       
@@ -89,14 +89,14 @@ exports.findbymusicdirector=(req,res)=>{
    const request=req.body;
 
    const musicdirector=request.musicdirector;
-
+   const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
    const countperpage=2;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
   
-   songs.find({music:musicdirector})
+   songs.find({music:musicdirector,language:language})
 
    .then(response=>{
       
@@ -118,14 +118,14 @@ exports.findbysingername=(req,res)=>{
    const request=req.body;
 
    const singername=request.singername;
-
+   const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
    const countperpage=2;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
 
-   songs.find({singers:singername})
+   songs.find({singers:singername,language:language})
 
    .then(response=>{
       
