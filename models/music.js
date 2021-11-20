@@ -15,7 +15,7 @@ const music=new Schema({
     },
     songname:
     {
-        type:String,
+        type:Array,
         required:true
     },
     singers:
@@ -25,7 +25,7 @@ const music=new Schema({
     },
     music:
     {
-        type:String,
+        type:Array,
         required:true
     },
     image:
@@ -34,7 +34,7 @@ const music=new Schema({
         required:true
     },
     moviename:{
-        type:String,
+        type:Array,
         required:true
     }
 })
