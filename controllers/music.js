@@ -35,7 +35,7 @@ exports.getsongsbyname=(req,res)=>{
    const songname=request.songname;
    const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
-   const countperpage=2;
+   const countperpage=4;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
@@ -44,7 +44,7 @@ exports.getsongsbyname=(req,res)=>{
    .then(response=>{
       
       const filterpage=response.slice(startindex,endindex);
-      const pagecount=Math.ceil(response.length/2);
+      const pagecount=Math.ceil(response.length/4);
       let pagecountarr=[];
       for(i=1;i<=pagecount;i++)
       {
@@ -63,7 +63,7 @@ exports.findbymoviename=(req,res)=>{
    const language=request.language;
    const moviename=request.moviename;
    const page=request.page ? request.page :1; //ternary operator
-   const countperpage=2;
+   const countperpage=4;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
@@ -73,7 +73,7 @@ exports.findbymoviename=(req,res)=>{
    .then(response=>{
       
       const filterpage=response.slice(startindex,endindex);
-      const pagecount=Math.ceil(response.length/2);
+      const pagecount=Math.ceil(response.length/4);
       let pagecountarr=[];
       for(i=1;i<=pagecount;i++)
       {
@@ -91,7 +91,7 @@ exports.findbymusicdirector=(req,res)=>{
    const musicdirector=request.musicdirector;
    const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
-   const countperpage=2;
+   const countperpage=4;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
@@ -101,7 +101,7 @@ exports.findbymusicdirector=(req,res)=>{
    .then(response=>{
       
       const filterpage=response.slice(startindex,endindex);
-      const pagecount=Math.ceil(response.length/2);
+      const pagecount=Math.ceil(response.length/4);
       let pagecountarr=[];
       for(i=1;i<=pagecount;i++)
       {
@@ -120,7 +120,7 @@ exports.findbysingername=(req,res)=>{
    const singername=request.singername;
    const language=request.language;
    const page=request.page ? request.page :1; //ternary operator
-   const countperpage=2;
+   const countperpage=4;
    let startindex=(page*countperpage)-countperpage;
  let endindex=(page*countperpage);
 
@@ -130,7 +130,7 @@ exports.findbysingername=(req,res)=>{
    .then(response=>{
       
       const filterpage=response.slice(startindex,endindex);
-      const pagecount=Math.ceil(response.length/2);
+      const pagecount=Math.ceil(response.length/4);
       let pagecountarr=[];
       for(i=1;i<=pagecount;i++)
       {
