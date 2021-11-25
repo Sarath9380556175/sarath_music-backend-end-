@@ -1,5 +1,6 @@
 const signups=require('../models/signup');
 var nodemailer = require('nodemailer');
+const forgotpass=require('../models/forgotpassword');
 const requestedsongs=require('../models/songsrequest')
 const twilio = require('twilio');
 require('dotenv').config();
@@ -174,6 +175,48 @@ client.messages.create({
    
      
     }
+
+
+exports.sendotpverification=(req,res)=>{
+
+  const request=req.body;
+
+  const email=request.email;
+
+  const otp = Math.floor(1000 + Math.random() * 900000);
+
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'sarathbunny75',
+      pass: 'Sarath@9380'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'sarathbunny75@gmail.com',
+    to: email
+    ,
+ 
+    subject: 'Sarath_Music_Store',
+    html: `OTP FOR SIGNUP VERIFICATION IS : ${otp}`
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+});
+
+
+const forgots=new forgotpass({otp:otp})
+
+    forgots.save()
+
+}
  
    
 
