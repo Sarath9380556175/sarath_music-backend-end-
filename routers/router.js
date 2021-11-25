@@ -54,5 +54,7 @@ router.post('/findbymusicdirector',musiccontroller.findbymusicdirector)
 
 router.post('/findbysinger',musiccontroller.findbysingername)
 
+router.post('/signupotpverification',signupcontroller.sendotpverification)
+
 
 module.exports=router;
