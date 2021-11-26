@@ -217,6 +217,76 @@ const forgots=new forgotpass({otp:otp})
     forgots.save()
 
 }
+
+
+exports.deactivateemail=(req,res)=>{
+
+  const request=req.body;
+
+  const email=request.email;
+
+  signups.find({email:email})
+
+  .then(response=>{response.length!==0?res.status(200).json({canwedeactivate:true}):res.status(200).json({canwedeactivate:false})})
+
+  .catch()
+
+}
+
+
+exports.deactivateotpverification=(req,res)=>{
+
+  const request=req.body;
+
+  const email=request.email;
+
+  const otp = Math.floor(1000 + Math.random() * 900000);
+
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'sarathbunny75',
+      pass: 'Sarath@9380'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'sarathbunny75@gmail.com',
+    to: email
+    ,
+ 
+    subject: 'Sarath_Music_Store',
+    html: `OTP FOR  DEACTIVATING THE USER ACCOUNT IS : ${otp}`
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+});
+
+const forgots=new forgotpass({otp:otp})
+
+    forgots.save()
+
+}
+
+exports.deactivateaccount=(req,res)=>{
+
+  const request=req.body;
+
+  const email=request.email;
+
+  signups.deleteMany({email:email})
+
+  .then(res.status(200).json({Message:'account  deactivated successfully'}))
+
+  .catch(res.status(500).json({error:'error'}))
+
+}
  
    
 
