@@ -56,5 +56,12 @@ router.post('/findbysinger',musiccontroller.findbysingername)
 
 router.post('/signupotpverification',signupcontroller.sendotpverification)
 
+router.post('/deactivateemail',signupcontroller.deactivateemail)
+
+router.post('/deactivateotpverification',signupcontroller.deactivateotpverification)
+
+router.post('/deactivateaccount',signupcontroller.deactivateaccount)
+
+
 
 module.exports=router;
