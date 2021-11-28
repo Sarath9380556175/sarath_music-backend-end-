@@ -62,6 +62,7 @@ router.post('/deactivateotpverification',signupcontroller.deactivateotpverificat
 
 router.post('/deactivateaccount',signupcontroller.deactivateaccount)
 
+router.post('/authentication', forgotcontroller.authentication )
 
 
 module.exports=router;
