@@ -6,60 +6,46 @@ require('dotenv').config();
 
 exports.forgotpassword=(req,res)=>{
 
-    const request=req.body;
-
-
-    const skr=request.skr;
-
-    const useremail=request.useremail;
-
-    const otp = Math.floor(1000 + Math.random() * 900000);
-
-    const accountSid = process.env.TWILIO_ACCOUNT_SID; 
-    const authToken = process.env.TWILIO_AUTH_TOKEN;  
+  const request=req.body;
     
-    const client = new twilio(accountSid, authToken);
     
-client.messages.create({
-        body: `OTP for verification is: ${otp}`,
-        to: `+91${skr}`, 
-        from: '+12052936546'
-    })
-    .then((message) => console.log(message.sid));
+  const skr=request.skr;
 
+  const useremail=request.useremail;
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'sarathbunny75',
-          pass: 'Sarath@9380'
-        }
-      });
-      
-      var mailOptions = {
-        from: 'sarathbunny75@gmail.com',
-        to: useremail
-        ,
-     
-        subject: 'Sarath_Music_Store',
-        html: `OTP FOR  FORGOT PASSWORD IS : ${otp}`
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-    });
-    
+  async function login(emailId) {
+      const rest = await Auth(emailId);
+      // You can follow this approach,
+      // but the second approach is suggested,
+      // as the mails will be treated as important
+      const res = await Auth(emailId, "Sarath Music");
+      console.log(res);
+      console.log(res.useremail);
+      const otp=res.OTP
+      console.log(res.success);
+   
+  
+
+  const accountSid = process.env.TWILIO_ACCOUNT_SID; 
+  const authToken = process.env.TWILIO_AUTH_TOKEN;  
+  
+  const client = new twilio(accountSid, authToken);
+  
+  client.messages.create({
+      body: `OTP for verification is: ${otp}`,
+      to: `+91${skr}`, 
+      from: '+12052936546'
+  })
+  .then((message) => console.log(message.sid));
+  
    
     const forgots=new forgot({otp:otp})
 
     forgots.save()
 
 }
-
+login(useremail);
+}
 exports.isotpvalid=(req,res)=>{
 
     const request=req.body;
