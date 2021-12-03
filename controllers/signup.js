@@ -3,6 +3,7 @@ var nodemailer = require('nodemailer');
 const forgotpass=require('../models/forgotpassword');
 const requestedsongs=require('../models/songsrequest')
 const twilio = require('twilio');
+const { Auth } = require("two-step-auth");
 require('dotenv').config();
 
 exports.postsignup=(req,res)=>{
@@ -183,41 +184,25 @@ exports.sendotpverification=(req,res)=>{
 
   const email=request.email;
 
-  const otp = Math.floor(1000 + Math.random() * 900000);
-
-
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'sarathbunny75',
-      pass: 'Sarath@9380'
-    }
-  });
-  
-  var mailOptions = {
-    from: 'sarathbunny75@gmail.com',
-    to: email
-    ,
+  async function login(emailId) {
+    const rest = await Auth(emailId);
+    // You can follow this approach,
+    // but the second approach is suggested,
+    // as the mails will be treated as important
+    const res = await Auth(emailId, "Sarath Music");
+    console.log(res);
+    console.log(res.email);
+    const otp=res.OTP
+    console.log(res.success);
  
-    subject: 'Sarath_Music_Store',
-    html: `OTP FOR SIGNUP VERIFICATION IS : ${otp}`
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-});
-
 
 const forgots=new forgotpass({otp:otp})
 
     forgots.save()
 
 }
-
+login(email);
+}
 
 exports.deactivateemail=(req,res)=>{
 
@@ -240,40 +225,25 @@ exports.deactivateotpverification=(req,res)=>{
 
   const email=request.email;
 
-  const otp = Math.floor(1000 + Math.random() * 900000);
-
-
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'sarathbunny75',
-      pass: 'Sarath@9380'
-    }
-  });
-  
-  var mailOptions = {
-    from: 'sarathbunny75@gmail.com',
-    to: email
-    ,
+  async function login(emailId) {
+    const rest = await Auth(emailId);
+    // You can follow this approach,
+    // but the second approach is suggested,
+    // as the mails will be treated as important
+    const res = await Auth(emailId, "Sarath Music");
+    console.log(res);
+    console.log(res.email);
+    const otp=res.OTP
+    console.log(res.success);
  
-    subject: 'Sarath_Music_Store',
-    html: `OTP FOR  DEACTIVATING THE USER ACCOUNT IS : ${otp}`
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-});
 
 const forgots=new forgotpass({otp:otp})
 
     forgots.save()
 
 }
-
+login(email);
+}
 exports.deactivateaccount=(req,res)=>{
 
   const request=req.body;
