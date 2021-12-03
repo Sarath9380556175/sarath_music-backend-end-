@@ -185,7 +185,7 @@ exports.sendotpverification=(req,res)=>{
   const email=request.email;
 
   async function login(emailId) {
-    const rest = await Auth(emailId);
+    
     // You can follow this approach,
     // but the second approach is suggested,
     // as the mails will be treated as important
@@ -226,7 +226,7 @@ exports.deactivateotpverification=(req,res)=>{
   const email=request.email;
 
   async function login(emailId) {
-    const rest = await Auth(emailId);
+    
     // You can follow this approach,
     // but the second approach is suggested,
     // as the mails will be treated as important
