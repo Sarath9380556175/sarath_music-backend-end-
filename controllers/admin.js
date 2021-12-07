@@ -48,53 +48,42 @@ Thank YOU`,
     .then((message) => console.log(message.sid));
     
   
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'sarathbunny75',
-        pass: 'Sarath@9380'
-      }
-    });
+      const { SocketLabsClient } = require('@socketlabs/email');
+
+    const serverId = 42055;
+    const injectionApiKey = "Gz62Ncp9W4Kis7SDy58R";
     
-    var mailOptions = {
-      from: 'sarathbunny75@gmail.com',
-      to: emailId
-      ,
-   
-      subject: 'Sarath_Music_Store',
-      html: `<img src="cid:unique@nodemailer.com" style=" text-align: center;" width="100px" height="100px"/> 
-      <br/>
-      <i style="color:orange">REQUESTED SONG HAS BEEN ADDED TO OUR DATABASE AND WE WILL ADD THE REQUESTED SONG INTO OUR WEBSITE</i>
-      <br/>
-      <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`
-      ,
-  
-      attachments:[
-          {
-              
-              path:__dirname+'/companylogo.png',
-              cid:'unique@nodemailer.com'
-          }
-      ]
+    const clients = new SocketLabsClient(serverId, injectionApiKey);
+    
+    const message = {
+        to: emailId,
+        from: "sarathbunny75@gmail.com",
+        subject: "Sarath Music",
+        htmlBody:`<i style="color:orange">REQUESTED SONG HAS BEEN ADDED TO OUR DATABASE AND WE WILL ADD THE REQUESTED SONG INTO OUR WEBSITE</i>
+        <br/>
+        <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`,
+        messageType: 'basic'
+       
     };
+
+    clients.send(message).then(
+      (res) => {
+          //Handle successful API call
+          console.log(res);
+      },
+      (err) => {
+          //Handle error making API call
+          console.log(err);
+      });
     
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-  });
-  
+
+    
     
 
 const songs=new requestedsongs({email:email,songname:songname,moviename:moviename,language:language,emailid:emailId})
 
 songs.save()
 
-.then(response=>{response.length!==0?res.status(200).json({songrequestaddeed:true}):res.status(200).json({songrequestaddeed:false})})
-
-.catch(err=>res.status(500).json({error:err}))
 
 }
 
@@ -139,45 +128,35 @@ Sarath Music`,
     from: '+12052936546'
 })
 .then((message) => console.log(message.sid));
+    
+    const { SocketLabsClient } = require('@socketlabs/email');
   
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user: 'sarathbunny75',
-              pass: 'Sarath@9380'
-            }
-          });
-          
-          var mailOptions = {
-            from: 'sarathbunny75@gmail.com',
-            to: email
-            ,
-         
-            subject: 'Sarath_Music_Store',
-            html: `<img src="cid:unique@nodemailer.com" style=" text-align: center;" width="100px" height="100px"/> 
-            <br/>
-            <i style="color:orange">DEAR USER,THE SONG WHICH YOU REQUESTED HAS BEEN ADDED TO OUR WEBSITE!CLICK THE LINK BELOW AND ENJOY LISTENING SONGS
-            THANKYOU!</i>
-            <br/>
-            <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`
-            ,
+      const serverId = 42055;
+const injectionApiKey = "Gz62Ncp9W4Kis7SDy58R";
 
-            attachments:[
-                {
-                    
-                    path:__dirname+'/companylogo.png',
-                    cid:'unique@nodemailer.com'
-                }
-            ]
-          };
-          
-          transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-        });
+const clients = new SocketLabsClient(serverId, injectionApiKey);
+
+const message = {
+    to: email,
+    from: "sarathbunny75@gmail.com",
+    subject: "Sarath Music",
+    htmlBody:`<i style="color:orange">DEAR USER,THE SONG WHICH YOU REQUESTED HAS BEEN ADDED TO OUR WEBSITE!CLICK THE LINK BELOW AND ENJOY LISTENING SONGS
+    THANKYOU!</i>
+    <br/>
+    <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`,
+    messageType: 'basic'
+   
+};
+
+clients.send(message).then(
+  (res) => {
+      //Handle successful API call
+      console.log(res);
+  },
+  (err) => {
+      //Handle error making API call
+      console.log(err);
+  });
    
 
 }
