@@ -2,6 +2,7 @@ const admin=require('../models/admin');
 const requestedsongs=require('../models/songsrequest')
 var nodemailer = require('nodemailer');
 const twilio = require('twilio');
+const sgmail=require('@sendgrid/mail')
 require('dotenv').config();
 exports.postadminpassword=(req,res)=>{
 
@@ -47,37 +48,31 @@ Thank YOU`,
     })
     .then((message) => console.log(message.sid));
     
-  
-      const { SocketLabsClient } = require('@socketlabs/email');
+   const API_KEY='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';
 
-    const serverId = 42055;
-    const injectionApiKey = "Gz62Ncp9W4Kis7SDy58R";
-    
-    const clients = new SocketLabsClient(serverId, injectionApiKey);
-    
-    const message = {
-        to: emailId,
-        from: "sarathbunny75@gmail.com",
-        subject: "Sarath Music",
-        htmlBody:`<i style="color:orange">REQUESTED SONG HAS BEEN ADDED TO OUR DATABASE AND WE WILL ADD THE REQUESTED SONG INTO OUR WEBSITE</i>
-        <br/>
-        <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`,
-        messageType: 'basic'
-       
+    sgmail.setApiKey(API_KEY)
+
+    const message=
+    {
+      to:emailId,
+      from:'sarath.bujala@zensark.com',
+      subject:'Sarath Music',
+      html:`<h4>Dear user the song which you requested has been added into our database and we will upload the song in 1-2 business days.
+      <br/>
+      Thankyou
+      <br/>
+      Sarath Music</h4>`
+      
     };
 
-    clients.send(message).then(
-      (res) => {
-          //Handle successful API call
-          console.log(res);
-      },
-      (err) => {
-          //Handle error making API call
-          console.log(err);
-      });
-    
+    sgmail.send(message)
+
+    .then(response=>console.log(response))
+
+    .catch(error=>console.log(error.message))
 
     
+   
     
 
 const songs=new requestedsongs({email:email,songname:songname,moviename:moviename,language:language,emailid:emailId})
@@ -129,34 +124,33 @@ Sarath Music`,
 })
 .then((message) => console.log(message.sid));
     
-    const { SocketLabsClient } = require('@socketlabs/email');
+    const API_KEY='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';
+
+sgmail.setApiKey(API_KEY)
+
+const message=
+{
+  to:email,
+  from:'sarath.bujala@zensark.com',
+  subject:'Sarath Music',
+  html:`<h4>Dear user the song which you requested has been added into our website.click the below link to enjoy listening the songs.
+  <br/>
+  <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>
+  <br/>
+  Thankyou
+  <br/>
+  Sarath Music</h4>`
   
-      const serverId = 42055;
-const injectionApiKey = "Gz62Ncp9W4Kis7SDy58R";
-
-const clients = new SocketLabsClient(serverId, injectionApiKey);
-
-const message = {
-    to: email,
-    from: "sarathbunny75@gmail.com",
-    subject: "Sarath Music",
-    htmlBody:`<i style="color:orange">DEAR USER,THE SONG WHICH YOU REQUESTED HAS BEEN ADDED TO OUR WEBSITE!CLICK THE LINK BELOW AND ENJOY LISTENING SONGS
-    THANKYOU!</i>
-    <br/>
-    <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`,
-    messageType: 'basic'
-   
 };
 
-clients.send(message).then(
-  (res) => {
-      //Handle successful API call
-      console.log(res);
-  },
-  (err) => {
-      //Handle error making API call
-      console.log(err);
-  });
+sgmail.send(message)
+
+.then(response=>console.log(response))
+
+.catch(error=>console.log(error.message))
+
+
+
    
 
 }
