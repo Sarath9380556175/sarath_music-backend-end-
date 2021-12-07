@@ -134,46 +134,37 @@ client.messages.create({
 .then((message) => console.log(message.sid));
 
   
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user: 'sarathbunny75',
-              pass: 'Sarath@9380'
-            }
-          });
-          
-          var mailOptions = {
-            from: 'sarathbunny75@gmail.com',
-            to: mails.map((item)=>{
-                return item
-            })
-            ,
-         
-            subject: 'Sarath_Music_Store',
-            html: `<img src="cid:unique@nodemailer.com" style=" text-align: center;" width="100px" height="100px"/> 
-            <br/>
-            <i style="color:orange">${notification}</i>
-            <br/>
-            <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`
-            ,
+        const { SocketLabsClient } = require('@socketlabs/email');
 
-            attachments:[
-                {
-                    
-                    path:__dirname+`/${image}`,
-                    cid:'unique@nodemailer.com'
-                }
-            ]
-          };
-          
-          transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-        });
+const serverId = 42055;
+const injectionApiKey = "Gz62Ncp9W4Kis7SDy58R";
+
+const clients = new SocketLabsClient(serverId, injectionApiKey);
+
+const message = {
+    to: mails.map((item)=>{
+      return item
+  }),
+    from: "sarathbunny75@gmail.com",
+    subject: "Sarath Music",
+    htmlBody:` <i style="color:orange">${notification}</i>
+    <br/>
+    <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`,
+    messageType: 'basic'
    
+};
+
+clients.send(message).then(
+  (res) => {
+      //Handle successful API call
+      console.log(res);
+  },
+  (err) => {
+      //Handle error making API call
+      console.log(err);
+  });
+   
+
      
     }
 
