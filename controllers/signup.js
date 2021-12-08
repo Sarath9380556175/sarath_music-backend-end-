@@ -111,12 +111,17 @@ exports.sendmails=(req,res)=>{
 
 exports.sendnotifications=(req,res)=>{
 
-   
-const request=req.body;
+    const request=req.body;
 
 const mobilenumber=request.mobilenumber;
 
 const mails=request.mails;
+
+const emails=mails.map((item)=>{
+  return item
+})
+
+console.log(emails)
 
 const notification=request.notification;
 
@@ -134,17 +139,19 @@ client.messages.create({
 })
 .then((message) => console.log(message.sid));
 
-  const API_KEY='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';
+const API_KEY='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';
 
 sgmail.setApiKey(API_KEY)
 
+for(var i=0;i<mails.length;i++)
+{
+
 const message=
 {
-  to: mails.map((item)=>{
-    return item
-}),
+  to:[emails[i]],
   from:'sarath.bujala@zensark.com',
   subject:'Sarath Music',
+  text:`${notification}`,
   html:`<h4>${notification}</h4>
   <br/>
   <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>
@@ -159,7 +166,10 @@ sgmail.sendMultiple(message)
 
 .then(response=>console.log(response))
 
-.catch(error=>console.log(error.message))   
+.catch(error=>console.log(error.message))
+}
+   
+
     }
 
 
