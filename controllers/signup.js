@@ -3,6 +3,7 @@ var nodemailer = require('nodemailer');
 const forgotpass=require('../models/forgotpassword');
 const requestedsongs=require('../models/songsrequest')
 const twilio = require('twilio');
+const sgmail=require('@sendgrid/mail')
 const { Auth } = require("two-step-auth");
 require('dotenv').config();
 
@@ -133,50 +134,32 @@ client.messages.create({
 })
 .then((message) => console.log(message.sid));
 
-  var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'sarathbunny75',
-    pass: 'Sarath@9380'
-  }
-});
+  const API_KEY='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';
 
-var mailOptions = {
-  from: 'sarathbunny75@gmail.com',
+sgmail.setApiKey(API_KEY)
+
+const message=
+{
   to: mails.map((item)=>{
-      return item
-  })
-  ,
-
-  subject: 'Sarath_Music_Store',
-  html: `<img src="cid:unique@nodemailer.com" style=" text-align: center;" width="100px" height="100px"/> 
+    return item
+}),
+  from:'sarath.bujala@zensark.com',
+  subject:'Sarath Music',
+  html:`<h4>${notification}</h4>
   <br/>
-  <i style="color:orange">${notification}</i>
+  <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>
   <br/>
-  <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>`
-  ,
-
-  attachments:[
-      {
-          
-          path:__dirname+`/${image}`,
-          cid:'unique@nodemailer.com'
-      }
-  ]
+  Thankyou
+  <br/>
+  Sarath Music</h4>`
+  
 };
 
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
-  
-        
-   
+sgmail.sendMultiple(message)
 
-     
+.then(response=>console.log(response))
+
+.catch(error=>console.log(error.message))   
     }
 
 
