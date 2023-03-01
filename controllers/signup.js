@@ -109,68 +109,68 @@ exports.sendmails=(req,res)=>{
   .catch(err=>res.status(500).json({error:err}))
 }
 
-exports.sendnotifications=(req,res)=>{
+//exports.sendnotifications=(req,res)=>{
 
-    const request=req.body;
+    //const request=req.body;
 
-const mobilenumber=request.mobilenumber;
+//const mobilenumber=request.mobilenumber;
 
-const mails=request.mails;
+//const mails=request.mails;
 
-const emails=mails.map((item)=>{
-  return item
-})
+//const emails=mails.map((item)=>{
+  //return item
+//})
 
-console.log(emails)
+//console.log(emails)
 
-const notification=request.notification;
+//const notification=request.notification;
 
-const image=request.image;
+//const image=request.image;
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID; 
-const authToken = process.env.TWILIO_AUTH_TOKEN;  
+//const accountSid = process.env.TWILIO_ACCOUNT_SID; 
+//const authToken = process.env.TWILIO_AUTH_TOKEN;  
 
-const client = new twilio(accountSid, authToken);
+//const client = new twilio(accountSid, authToken);
 
-client.messages.create({
-    body: `${notification}`,
-    to: `+91${mobilenumber}`, 
-    from: '+12052936546'
-})
-.then((message) => console.log(message.sid));
+//client.messages.create({
+   // body: `${notification}`,
+   // to: `+91${mobilenumber}`, 
+   // from: '+12052936546'
+//})
+//.then((message) => console.log(message.sid));
 
-const API_KEY='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';
+//const API_KEY='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';
 
-sgmail.setApiKey(API_KEY)
+//sgmail.setApiKey(API_KEY)
 
-for(var i=0;i<mails.length;i++)
-{
+//for(var i=0;i<mails.length;i++)
+//{
 
-const message=
-{
-  to:[emails[i]],
-  from:'sarath.bujala@zensark.com',
-  subject:'Sarath Music',
-  text:`${notification}`,
-  html:`<h4>${notification}</h4>
-  <br/>
-  <a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>
-  <br/>
-  Thankyou
-  <br/>
-  Sarath Music</h4>`
+//const message=
+//{
+ // to:[emails[i]],
+ // from:'sarath.bujala@zensark.com',
+ // subject:'Sarath Music',
+ // text:`${notification}`,
+  //html:`<h4>${notification}</h4>
+  //<br/>
+  //<a href="https://skr-music.netlify.app" style="font-style:serif">click here to open sarath-music</a>
+  //<br/>
+  //Thankyou
+  //<br/>
+  //Sarath Music</h4>`
   
-};
+//};
 
-sgmail.sendMultiple(message)
+//sgmail.sendMultiple(message)
 
-.then(response=>console.log(response))
+//.then(response=>console.log(response))
 
-.catch(error=>console.log(error.message))
-}
+//.catch(error=>console.log(error.message))
+//}
    
 
-    }
+   // }
 
 
 exports.sendotpverification=(req,res)=>{
