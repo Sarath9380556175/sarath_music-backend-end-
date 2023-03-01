@@ -32,7 +32,7 @@ router.post('/findbysongname',musiccontroller.getsongsbyname)
 
 router.post('/mails',signupcontroller.getmails)
 
-router.post('/notifications',signupcontroller.sendnotifications)
+//router.post('/notifications',signupcontroller.sendnotifications)
 
 router.post('/admin',admincontroller.postadminpassword)
 
