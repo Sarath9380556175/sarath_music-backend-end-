@@ -2,8 +2,6 @@ const signups=require('../models/signup');
 var nodemailer = require('nodemailer');
 const forgotpass=require('../models/forgotpassword');
 const requestedsongs=require('../models/songsrequest');
-const twilio = require('twilio');
-const sgmail=require('@sendgrid/mail');
 const { Auth } = require("two-step-auth");
 require('dotenv').config();
 
